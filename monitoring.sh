@@ -8,7 +8,7 @@ DISK_TOTAL=$(df -h | grep '/$' | awk '{print $2}')
 DISK_USED=$(df -h | grep '/$' | awk '{print $3}')
 DISK_PERCENT=$(df -h | grep '/$' | awk '{print $5}')
 
-CPU_LOAD=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1}')
+CPU_LOAD=$(top -bn1 | grep "%Cpu" | awk '{printf("%.1f%%"), $1 + $3}')
 
 lvmt=$(lsblk | grep "lvm" | wc -l)
 LVM_USE=$(if [ "$lvmt" -eq 0 ]; then echo no; else echo yes; fi)
